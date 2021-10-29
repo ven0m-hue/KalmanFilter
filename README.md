@@ -1,5 +1,5 @@
 # KalmanFilter
-In optimal control theory aka /b Linear Quadratic Estimator (LQE) 
+In optimal control theory aka </b>Linear Quadratic Estimator (LQE) </b>
 
 Matlab implementation of the kalman filter/ extended kalman filter. 
 
