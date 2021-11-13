@@ -20,7 +20,7 @@ deg2rad = pi/180;
     
     % Although not part of Klaman init, but for better initialization.
     % init one set of euler angel
-    [roll_init, pitch_init, yaw_init] = acc2euler(acc(1, :), mag(1, :));
+    [roll_init, pitch_init, yaw_init] = get_acc_mag(acc(1, :), mag(1, :));
     roll_init1 = roll_init * rad2deg;
     pitch_init1 = pitch_init * rad2deg;
     yaw_init1 = 360 - yaw_init * rad2deg;
@@ -70,7 +70,7 @@ deg2rad = pi/180;
     end
     
      %% Calcualte the RYP directily using the raw data 
-    [acc_roll(k, 1), acc_pitch(k, 1), mag_yaw(k, 1)] = acc2euler(acc(k, :), mag(k,:));
+    [acc_roll(k, 1), acc_pitch(k, 1), mag_yaw(k, 1)] = get_acc_mag(acc(k, :), mag(k,:));
     acc_roll(k) = acc_roll(k, 1) * rad2deg;
     acc_pitch(k) = acc_pitch(k, 1) * rad2deg;
     mag_yaw(k) = 360 - mag_yaw(k, 1) * rad2deg;
@@ -164,9 +164,9 @@ deg2rad = pi/180;
     
     
     %% 
-    % 1-D model for the YAW alone for better approximation
-    % Mag model to compute the better yaw estimation 
-    % Where, yaw initialization 
+    % 1-D model for the YAW alone, for better approximation.
+    % Mag model to compute the better yaw estimation.
+    % Where, yaw initialization,
     %X1 = [yaw_init*deg2rad;0];
     %Q1 = diag([1e-6, 1e-8]);
     %R1 = 0.1;
@@ -189,7 +189,7 @@ deg2rad = pi/180;
     %
     P1_next = A*P1*A' + Q1;
     % Refined roll and pitch to find the yaw.
-    Z1(k) = getYaw(mag(k,:), estimate_roll(k, 1)*deg2rad, estimate_pitch(k, 1)*deg2rad);
+    Z1(k) = yawCorrection(mag(k,:), estimate_roll(k, 1)*deg2rad, estimate_pitch(k, 1)*deg2rad);
     
     %
     S1 = Z1(k) - H1*X_next;
