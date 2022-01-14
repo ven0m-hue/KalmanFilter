@@ -99,31 +99,31 @@ B = [Ts^2/2; Ts];
 C = [1 0;
      0 0];
  
-%g = 9.799;  % Input for now
-
 for i=1:Length 
-%Estimated State update equation 
-X = A*Xp + B*az(i);
-%Predicted State update equation 
-Pp = A*Pp*A' + Q;
 
-%Measurement model
-Y = [ height_p(i); 0];
-%Corrector equation 
-S = Y - C*X;  %converge to zero
-%Kalman Gain 
-%Sp = C*Pp*C' + R;
-Sp = 1/(Pp(1,1) + R(1,1));
-K = Pp*C*Sp;
+   %Estimated State update equation 
+   X = A*Xp + B*az(i);
+   %Predicted State update equation 
+   Pp = A*Pp*A' + Q;
 
-%Update state equation 
-Xp = Xp + K*S;
-%Update Predicted equation
-Pp = (eye(2) - K*C)*Pp;
+   %Measurement model
+   Y = [ height_p(i); 0];
+   %Corrector equation 
+   S = Y - C*X;  %converge to zero
+   %Kalman Gain 
+   %Sp = C*Pp*C' + R;
+   Sp = 1/(Pp(1,1) + R(1,1));
+   K = Pp*C*Sp;
 
-%Output
-estimate_height(i) = Xp(1);
-estimate_velocity(i) = Xp(2);
+   %Update state equation 
+   Xp = Xp + K*S;
+   %Update Predicted equation
+   Pp = (eye(2) - K*C)*Pp;
+
+   %Output
+   estimate_height(i) = Xp(1);
+   estimate_velocity(i) = Xp(2);
+   
 end
 
 %% Plots 
@@ -134,14 +134,13 @@ xlabel('t/s', 'FontSize', 20);
 ylabel('Height', 'FontSize', 20);
 title('Height Estimation', 'FontSize', 20);
 
- figure(2);
- plot(Time, velocity_p, Time, estimate_velocity);
- legend('Velocity_Baro', 'Velocity_KF', 'FontSize', 10);
- xlabel('t/s', 'FontSize', 10);
- ylabel('Velocity', 'FontSize', 10);
- title('Veloctiy Estimation', 'FontSize', 20);
-
-shg
+figure(2);
+plot(Time, velocity_p, Time, estimate_velocity);
+legend('Velocity_Baro', 'Velocity_KF', 'FontSize', 10);
+xlabel('t/s', 'FontSize', 10);
+ylabel('Velocity', 'FontSize', 10);
+title('Veloctiy Estimation', 'FontSize', 20);
+%%END
 
 
 
