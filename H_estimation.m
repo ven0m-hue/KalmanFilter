@@ -1,12 +1,10 @@
-%Kalman filter based Height estimation for the autonomous Lift-off and
-%Landing aka Observer model. 
-%Sensors used for now are Barometer and accel z axis data 
+%Observer using Kalman filter based Height estimation. 
+%Sensors fused are Barometer and Accel z axis data 
 %Future extention can be done by adding the GPS data.
 %For simulation, get the pressure sensor raw data
 %Extract the raw H parameter 
 %Build the State Space model for the H estimation 
-% Sesor Fusion all over again - Kalman Filter 
-%%
+
 %TO DO's
 %Tilt correction 
 
@@ -136,12 +134,12 @@ xlabel('t/s', 'FontSize', 20);
 ylabel('Height', 'FontSize', 20);
 title('Height Estimation', 'FontSize', 20);
 
-% figure(2);
-% plot(Time, velocity_p, Time, estimate_velocity);
-% legend('Velocity_Baro', 'Velocity_KF', 'FontSize', 10);
-% xlabel('t/s', 'FontSize', 10);
-% ylabel('Velocity', 'FontSize', 10);
-% title('Veloctiy Estimation', 'FontSize', 20);
+ figure(2);
+ plot(Time, velocity_p, Time, estimate_velocity);
+ legend('Velocity_Baro', 'Velocity_KF', 'FontSize', 10);
+ xlabel('t/s', 'FontSize', 10);
+ ylabel('Velocity', 'FontSize', 10);
+ title('Veloctiy Estimation', 'FontSize', 20);
 
 shg
 
