@@ -127,7 +127,7 @@ for i=1:Length
 end
 
 %% Plots 
-figure;
+figure(1);
 plot(Time, height_p, Time, estimate_height);
 legend('Height_Baro', 'Height_KF', 'FontSize', 10);
 xlabel('t/s', 'FontSize', 20);
